@@ -34,15 +34,19 @@ then
 	exit 1
 fi
 
-DAILY="$BACKUP_DIR/$(date +%A).tgz"
-MONTHLY="$BACKUP_DIR/$(date +%B).tgz"
+DAILY="$BACKUP_DIR/$(date +%A).tar"
+MONTHLY="$BACKUP_DIR/$(date +%B).tar"
 
+date > "$DAILY.log"
 echo "creating daily backup $DAILY"
-tar cvzfPp $DAILY --exclude-from $EXCLUSIONS_FILE $SRC_DIR > "$DAILY.log"
+tar cvfp $DAILY --exclude-from $EXCLUSIONS_FILE $SRC_DIR >> "$DAILY.log"
+date >> "$DAILY.log"
+echo "backup COMPLETE" >> "$DAILY.log"
 
 echo "creating monthly backup $MONTHLY"
 cp -f $DAILY $MONTHLY
 cp -f "$DAILY.log" "$MONTHLY.log"
+date >> "$MONTHLY.log"
+echo "backup COMPLETE" >> "$MONTHLY.log"
 
-echo "backup COMPLETE"
 exit 0
