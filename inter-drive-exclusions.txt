@@ -21,6 +21,7 @@ Downloads
 lost+found
 .macromedia
 .mission-control
+Music
 NotBackedUp
 .pki
 .pulse
